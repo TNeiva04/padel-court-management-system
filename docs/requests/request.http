@@ -1,0 +1,44 @@
+@token =3127b742-0ec6-48b8-8ebd-c7b015d4aa31
+@token2 =750a9182-52ad-4fda-9300-a88f1bf7ac8e
+##--cde803e4-393a-42a9-a1b8-37567d31581d
+###
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "joe",
+  "email": "john_doe@example.com"
+}
+
+###
+POST http://localhost:8080/clubs/1/courts/1/rentals
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "date": "2025-04-01",
+  "duration": 3
+}
+
+
+###
+GET http://localhost:8080/rentals/4
+Content-Type: application/json
+
+
+###
+GET http://localhost:8080/rentals
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+GET http://localhost:8080/clubs/1/courts/1/rentals?date=2025-04-01
+Content-Type: application/json
+
+
+###
+GET http://localhost:8080/clubs/1/courts/1/available-hours?date=2025-04-01
+Content-Type: application/json
+
+

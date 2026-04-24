@@ -1,0 +1,578 @@
+openapi: 3.0.1
+info:
+  title: Padle Courts
+  description: A web API for managing courts and reservations for padle games.
+  contact:
+    email: email@isel.pt
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - description: Localhost server for testing API
+    url: http://localhost:8080
+security:
+  - bearerAuth: [ ]
+tags:
+  - name: Users
+  - name: Clubs
+  - name: Courts
+  - name: Rentals
+paths:
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Create a new user
+      description: Registers a new user in the system.
+      operationId: createUser
+      requestBody:
+        description: New user to register
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewUser"
+        required: true
+      responses:
+        201:
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uid:
+                    type: integer
+                required:
+                  - uid
+        400:
+          $ref: "#/components/responses/400BadRequest"
+  /users/{uid}:
+    get:
+      tags:
+        - Users
+      summary: Get user details
+      description: Retrieves the details of the authenticated user.
+      operationId: getUserDetails
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: [ ]
+      responses:
+        200:
+          description: Details of the authenticated user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        401:
+          $ref: "#/components/responses/401Unauthorized"
+  /clubs:
+    get:
+      tags:
+        - Clubs
+      summary: Get all clubs
+      operationId: getClubs
+      responses:
+        200:
+          description: List of all clubs
+          content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/ClubList'
+    post:
+      tags:
+        - Clubs
+      summary: Create a new club
+      operationId: createClub
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewClub"
+      responses:
+        201:
+          description: Club created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cid:
+                    type: integer
+        400:
+          $ref: "#/components/responses/400BadRequest"
+
+  /clubs/{cid}:
+    get:
+      tags:
+        - Clubs
+      summary: Get club by ID
+      operationId: getClubById
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Club details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Club'
+        404:
+          $ref: "#/components/responses/404NotFound"
+
+  /clubs/{cid}/courts:
+    get:
+      tags:
+        - Courts
+      summary: Get courts by club ID
+      operationId: getCourtsByClub
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: List of courts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourtList'
+        400:
+          $ref: "#/components/responses/400BadRequest"
+    post:
+      tags:
+        - Courts
+      summary: Create a court
+      operationId: createCourt
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewCourt"
+      responses:
+        201:
+          description: Court created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cid:
+                    type: integer
+                required:
+                  - cid
+        400:
+          $ref: "#/components/responses/400BadRequest"
+  /courts/{crid}:
+    get:
+      tags:
+        - Courts
+      summary: Get court by ID
+      operationId: getCourtById
+      parameters:
+        - name: crid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Court details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Court'
+        404:
+          $ref: "#/components/responses/404NotFound"
+
+  /rentals:
+    get:
+      tags:
+        - Rentals
+      summary: Get user rentals
+      operationId: getUserRentals
+      responses:
+        200:
+          description: List of rentals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentalList'
+
+        400:
+          $ref: "#/components/responses/400BadRequest"
+
+  /rentals/{rid}:
+    get:
+      tags:
+        - Rentals
+      summary: Get rental by ID
+      operationId: getRentalById
+      parameters:
+        - name: rid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Rental details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rental'
+        404:
+          $ref: "#/components/responses/404NotFound"
+    put:
+      tags:
+        - Rentals
+      summary: Update a rental
+      operationId: updateRental
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date-time
+                Duration:
+                  type: object
+                  properties:
+                    duration:
+                      type: integer
+              required:
+                - date
+                - Duration
+      responses:
+        200:
+          description: Rental updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rental'
+        400:
+          $ref: "#/components/responses/400BadRequest"
+        401:
+          $ref: "#/components/responses/401Unauthorized"
+        404:
+          $ref: "#/components/responses/404NotFound"
+    delete:
+      tags:
+        - Rentals
+      summary: Delete a rental
+      operationId: deleteRental
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Rental deleted successfully
+          content: {}
+        400:
+          $ref: "#/components/responses/400BadRequest"
+        401:
+          $ref: "#/components/responses/401Unauthorized"
+        404:
+          $ref: "#/components/responses/404NotFound"
+  /clubs/{cid}/courts/{crid}/rentals:
+    get:
+      tags:
+        - Rentals
+      summary: Get rentals by club, court, and date
+      operationId: getRentalsByClubCourtDate
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: crid
+          in: path
+          required: true
+          schema:
+           type: integer
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        200:
+          description: Court rentals for a specific date
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentalList'
+        400:
+          $ref: "#/components/responses/400BadRequest"
+    post:
+      tags:
+        - Rentals
+      summary: Create a rental
+      operationId: createRental
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: crid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewRental"
+      responses:
+        201:
+          description: Rental created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rid:
+                    type: integer
+                required:
+                  - rid
+        400:
+          $ref: "#/components/responses/400BadRequest"
+
+  /clubs/{cid}/courts/{crid}/availablehours:
+    get:
+      tags:
+        - Rentals
+      summary: Get available hours for court
+      operationId: getAvailableHours
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: crid
+          in: path
+          required: true
+          schema:
+          type: string
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        200:
+          description: Available hours for the court
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HoursList'
+        400:
+          $ref: "#/components/responses/400BadRequest"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    AvailableHours:
+      type: object
+      properties:
+        date_hour:
+          type: string
+          format: date-time
+      required:
+        - date_hour
+
+    HoursList:
+      type: object
+      properties:
+        hours:
+          type: array
+          items:
+            $ref: '#/components/schemas/AvailableHours'
+      required:
+        - hours
+
+    User:
+      type: object
+      properties:
+        uid:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        token:
+          type: string
+      required:
+        - uid
+        - name
+        - email
+        - token
+
+    Club:
+      type: object
+      properties:
+        cid:
+          type: integer
+        name:
+          type: string
+        owner:
+          $ref: '#/components/schemas/User'
+      required:
+        - cid
+        - name
+        - owner
+    Court:
+      type: object
+      properties:
+        crid:
+          type: integer
+        name:
+          type: string
+        club:
+          $ref: '#/components/schemas/Club'
+      required:
+        - crid
+        - name
+        - club
+    Duration:
+      type: object
+      properties:
+        duration:
+          type: integer
+      required:
+        - duration
+
+    Rental:
+      type: object
+      properties:
+        rid:
+          type: integer
+        date:
+          type: string
+          format: date-time
+        duration:
+          $ref: '#/components/schemas/Duration'
+        user:
+          $ref: '#/components/schemas/User'
+        court:
+          $ref: '#/components/schemas/Court'
+      required:
+        - rid
+        - date
+        - duration
+        - user
+        - court
+
+    RentalList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Rental'
+
+
+    ClubList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Club'
+    CourtList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Court'
+
+
+    NewUser:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+        token:
+          type: string
+    NewClub:
+      type: object
+      properties:
+        name:
+          type: string
+    NewCourt:
+      type: object
+      properties:
+        name:
+          type: string
+        cid:
+          type: integer
+
+    NewRental:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+        duration:
+          type: integer
+  responses:
+    400BadRequest:
+      description: Bad request. The request was malformed or contains invalid data.
+    401Unauthorized:
+      description: Unauthorized. Authentication failed or user does not have permissions for the desired action.
+    404NotFound:
+      description: Not Found. The requested resource could not be found.
+    409Conflict:
+      description: Conflict. The request could not be processed because of a conflict with the current state of the resource.
+    500InternalServerError:
+      description: Internal Server Error. An unexpected error occurred on the server.

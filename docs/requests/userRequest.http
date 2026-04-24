@@ -1,0 +1,71 @@
+###
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "J",
+  "email": "j@m.com",
+  "password": "123"
+}
+
+
+###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "email": "johny3ubb_doe@example.com",
+  "password": "12345678"
+}
+
+###
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "mariobb C",
+  "email": "maruvbbbbbjogatol@examplelo.com"
+}
+
+###
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "Tiago Neiva",
+  "email": "tn@example.com"
+}
+
+###
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "Andre Carrilho",
+  "email": "ac@example.com"
+}
+
+###
+GET http://localhost:8080/users/14
+Accept: application/json
+
+###
+GET http://localhost:8080/users/999990
+Accept: application/json
+
+
+###
+GET http://localhost:8080/users/2
+Accept: application/json
+
+###
+GET http://localhost:8080/users/3
+Accept: application/json
+
+###
+GET http://localhost:8080/users/4
+Accept: application/json
+
+###
+GET http://localhost:8080/users
+Accept: application/json

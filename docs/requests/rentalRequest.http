@@ -1,0 +1,60 @@
+@token2 =b69a7b36-2fdd-4ee1-870a-056ae02855d2
+@token =token1234
+@token4 =token91011
+
+###
+POST http://localhost:8080/clubs/1/courts/1/rentals
+Content-Type: application/json
+Authorization: Bearer {{token4}}
+
+{
+  "date": "2025-03-30T23:00:00",
+  "Duration": {
+    "duration": 1
+  }
+}
+
+
+###
+GET http://localhost:8080/rentals/2
+Content-Type: application/json
+
+
+###
+GET http://localhost:8080/rentals
+Content-Type: application/json
+Authorization: Bearer {{token4}}
+
+###
+GET http://localhost:8080/rentalsbyuser/1
+content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+
+###
+GET http://localhost:8080/clubs/2/courts/3/rentals?date=2025-03-25T00:00:00
+Content-Type: application/json
+
+
+###
+GET http://localhost:8080/clubs/1/courts/1/availablehours?date=2025-05-28T00:00:00
+Content-Type: application/json
+
+
+###
+PUT http://localhost:8080/rentals/14
+Content-Type: application/json
+Authorization: Bearer {{token4}}
+
+{
+  "date": "2025-06-15T10:00:00",
+  "Duration": {
+    "duration": 4
+  }
+}
+
+
+###
+DELETE http://localhost:8080/rentals/6
+Content-Type: application/json

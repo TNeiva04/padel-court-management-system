@@ -1,0 +1,34 @@
+@token =token1234
+@token2 =b69a7b36-2fdd-4ee1-870a-056ae02855d2
+@token3 =4c1116a2-42bf-4905-a935-bfb06819bb21
+###
+POST http://localhost:8080/clubs
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "GD Chaves"
+}
+
+###
+POST http://localhost:8080/clubs
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Sportinm"
+}
+
+###
+GET http://localhost:8080/clubs/7
+Content-Type: application/json
+
+
+###
+GET http://localhost:8080/clubsbyuser
+Authorization: Bearer {{token3}}
+Accept: application/json
+
+###
+GET http://localhost:8080/clubs?name=Ch
+Accept: application/json

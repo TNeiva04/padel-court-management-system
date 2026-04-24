@@ -1,0 +1,21 @@
+@token =b69a7b36-2fdd-4ee1-870a-056ae02855d2
+@token2 =b69a7b36-2fdd-4ee1-870a-056ae02855d2
+@token3 =token1234
+@token4 =4c1116a2-42bf-4905-a935-bfb06819bb21
+
+###
+POST http://localhost:8080/clubs/10/courts
+Authorization: Bearer {{token4}}
+Content-Type: application/json
+
+{
+  "name": "courtMariaSantos"
+}
+
+###
+GET http://localhost:8080/clubs/4/courts?limit=10&skip=2
+Accept: application/json
+
+###
+GET http://localhost:8080/courts/2
+Accept: application/json

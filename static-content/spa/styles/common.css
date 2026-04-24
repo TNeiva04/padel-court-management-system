@@ -1,0 +1,572 @@
+:root {
+    --color-primary: #0d6efd;
+    --color-primary-hover: #0b5ed7;
+    --color-secondary: #1e88e5;
+    --color-secondary-hover: #1565c0;
+    --color-danger: #dc3545;
+    --color-danger-hover: #b02a37;
+    --color-light: #f8f9fa;
+    --color-border: #dee2e6;
+    --color-text-dark: #333333;
+    --color-text-muted: #6c757d;
+}
+
+body {
+    background-color: var(--color-light);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Botões */
+.btn {
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn--primary {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+
+.btn--primary:hover,
+.btn--primary:focus {
+    background-color: var(--color-primary-hover);
+    outline: none;
+}
+
+.btn--danger {
+    background-color: var(--color-danger);
+    color: #fff;
+}
+
+.btn--danger:hover,
+.btn--danger:focus {
+    background-color: var(--color-danger-hover);
+    outline: none;
+}
+
+.btn--disabled,
+.btn--disabled:hover,
+.btn--disabled:focus {
+    background-color: #f5f5f5;
+    color: #9e9e9e;
+    cursor: not-allowed;
+    outline: none;
+}
+
+/* Links de ações de reserva */
+.delete-reservation-link,
+.edit-reservation-link {
+    display: inline-block;
+    cursor: pointer;
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+.delete-reservation-link {
+    color: red !important;
+}
+
+.delete-reservation-link:hover,
+.delete-reservation-link:focus {
+    color: #880000 !important;
+    text-decoration: underline;
+    outline: none;
+}
+.links-container a {
+    display: block;
+    margin-bottom: 10px; /* espaçamento entre os links */
+}
+
+
+.edit-reservation-link {
+    color: var(--color-primary);
+}
+
+.edit-reservation-link:hover,
+.edit-reservation-link:focus {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+    outline: none;
+}
+
+/* Lista de ações */
+.reservation-actions li {
+    margin-bottom: 10px;
+}
+
+/* Inputs uniformes */
+.uniform-input {
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
+    box-sizing: border-box;
+}
+
+/* Barra superior */
+.top-bar {
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.top-bar-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Containers principais */
+.clubs-container,
+.userdetails-container,
+.userclubs-container,
+.clubsdetails-container,
+.create-club-container,
+.courts-container,
+.create-court-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos dentro dos containers */
+.clubs-container h1,
+.userdetails-container h1,
+.userclubs-container h1,
+.create-club-container h1,
+.courts-container h1,
+.create-court-container h2 {
+    font-size: 28px;
+    color: var(--color-text-dark);
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+/* Listas */
+.clubs-container ul,
+.userclubs-container ul,
+.courts-container .court-list {
+    list-style: none;
+    padding: 0;
+}
+
+.clubs-container li,
+.userclubs-container li,
+.courts-container .court-item {
+    margin: 10px 0;
+}
+
+/* Links nas listas */
+.clubs-container a,
+.userclubs-container a,
+.courts-container .court-link {
+    text-decoration: none;
+    color: var(--color-secondary);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.clubs-container a:hover,
+.userclubs-container a:hover,
+.courts-container .court-link:hover {
+    color: var(--color-secondary-hover);
+}
+
+/* Navegação nas courts */
+.courts-container .navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.courts-container .navigation button,
+.pagination-controls button {
+    padding: 8px 15px;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.courts-container .navigation button:hover,
+.pagination-controls button:hover {
+    background-color: #d5d5d5;
+}
+
+.courts-container .navigation button:disabled,
+.pagination-controls button:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    color: #9e9e9e;
+}
+
+/* Itens dos courts e clubs */
+.courts-container .court-item,
+.clubs-container .club-item {
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.courts-container .court-item:hover,
+.clubs-container .club-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.courts-container .court-item h5,
+.clubs-container .club-item h5 {
+    margin: 0;
+    color: var(--color-primary);
+    font-size: 1.2rem;
+}
+
+.courts-container .court-item p,
+.clubs-container .club-item p {
+    margin: 0.5rem 0;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+/* Formulário de criação de courts */
+.create-court-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.create-court-container label {
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+.create-court-container input[type="text"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.create-court-container button {
+    composes: btn btn--primary;
+    width: auto;
+}
+
+.create-court-container button:hover {
+    background-color: var(--color-primary-hover);
+}
+
+/* Empty state courts */
+.courts-container h1.empty {
+    color: #999;
+    font-style: italic;
+}
+
+.empty-state {
+    padding: 2rem;
+    border: 2px dashed #ced4da;
+    border-radius: 12px;
+    background-color: var(--color-light);
+    text-align: center;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+/* Link para home */
+.home-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.home-link:hover {
+    color: var(--color-secondary-hover);
+}
+
+/* Cards das courts */
+.court-card {
+    background: linear-gradient(135deg, #e9f5ff, #fff);
+    border: 1px solid #cfe2ff;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(13, 110, 253, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.court-card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 16px rgba(13, 110, 253, 0.1);
+}
+
+.court-card h5 {
+    color: var(--color-primary);
+    font-size: 1.25rem;
+}
+
+.court-card .court-type {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.court-card .court-details {
+    font-size: 0.95rem;
+    color: #495057;
+}
+
+/* Paginação */
+.pagination {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.pagination .page-link {
+    border-radius: 50px;
+    color: var(--color-primary);
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.pagination .page-link:hover {
+    background-color: #e9ecef;
+}
+
+/* Animação */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Controles da paginação */
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Links e área do topo */
+#links {
+    background-color: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 1rem;
+}
+
+#links p#welcome {
+    margin-left: auto;
+    margin-bottom: 0;
+}
+
+#links a.link-success{
+    margin-left: auto;
+}
+
+#links a {
+    color: var(--color-primary);
+    text-decoration: none;
+    margin-right: 1rem;
+    font-weight: 600;
+}
+
+#links a:hover {
+    text-decoration: underline;
+}
+
+/* Container detalhes da rental */
+.rentaldetails-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.rentaldetails-container ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.rentaldetails-container ul li {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: var(--color-text-dark);
+}
+
+/* Link para voltar */
+.back-link {
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Lista de rentals */
+.rentals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+
+/* Links individuais de rental */
+.rental-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    background-color: #f1f3f5;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--color-text-dark);
+    transition: background-color 0.2s ease;
+}
+
+.rental-link:hover {
+    background-color: #e2e6ea;
+}
+
+
+/* Container do Login e Registo */
+.login-container,
+.register-container {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Formulários de Login e Registo */
+.login-form,
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.login-form label,
+.register-form label {
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+.login-form input,
+.register-form input {
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.login-form input:focus,
+.register-form input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+/* Botão de submissão do formulário */
+.login-form button,
+.register-form button {
+    background-color: var(--color-primary);
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.login-form button:hover,
+.register-form button:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.register-link {
+    display: flex;
+    justify-content: center; /* centra horizontalmente */
+    margin-top: 1rem; /* para dar algum espaçamento em cima */
+}
+
+
+.reservation-warning {
+    padding: 1rem;
+    border: 1px solid #1e88e5;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    margin: 2rem auto;
+    font-size: 1rem;
+    color: black;
+}
+
+.login-home-link-reservation {
+    display: inline-block;
+    margin-top: 1rem;
+    color: white;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+
